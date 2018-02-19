@@ -1,9 +1,9 @@
 ---
 title: JavaScript的正则学习笔记
 date: 2016-08-17 00:02:36
+categories: 技术文章
 tags: [javascript,正则表达式]
-keywords: js,javascript,正则表达式
-categories: 前端相关
+keywords: javascript,正则表达式
 ---
 
 ## 前言 ##

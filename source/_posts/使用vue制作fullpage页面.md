@@ -1,9 +1,9 @@
 ---
 title: 使用vue制作FullPage页面
 date: 2017-04-05 00:11:29
-tags: [vue,前端,fullpage]
+categories: 技术文章
+tags: [vue,fullpage]
 keywords: vuejs,fullpage
-categories: 前端相关
 ---
 
 ## 前言 ##

@@ -1,9 +1,9 @@
 ---
 title: JS打包工具rollup——完全入门指南
-tags: [javascript,nodejs]
-categories: 前端相关
-keywords: rollup,nodejs,打包工具
 date: 2017-8-12 13:41:33
+categories: 技术文章
+tags: [nodejs,rollup]
+keywords: rollup,nodejs,打包工具
 ---
 
 

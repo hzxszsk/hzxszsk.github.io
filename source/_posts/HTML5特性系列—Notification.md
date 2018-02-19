@@ -1,9 +1,9 @@
 ---
 title: HTML5特性——Notification
 date: 2016-12-20 22:38:48
+categories: 技术文章
 tags: [html5,javascript]
 keywords: HTML5,Notification
-categories: 前端相关
 ---
 
 ## 前言 ##

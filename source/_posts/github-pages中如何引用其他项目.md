@@ -1,9 +1,9 @@
 ---
 title: github pages中如何引用其他项目
 date: 2016-08-21 20:57:56
+categories: 技术文章
 tags: [github,github pages]
 keywords: github pages,引用GitHub项目
-categories: 前端相关
 ---
 
 ## 前言 ##

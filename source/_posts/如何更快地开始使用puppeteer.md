@@ -1,9 +1,9 @@
 ---
 title: 如何更快地开始使用puppeteer
 date: 2017-12-25 19:56:21
+categories: 技术文章
 tags: [nodejs]
 keywords: puppeteer
-categories: 前端相关
 ---
 
 最近看了[大前端神器安利之 Puppeteer](https://jeffjade.com/2017/12/17/134-kinds-of-toss-using-puppeteer/)这篇文章之后，想要自己试试，本文记录了我在安装puppeteer过程中遇到的问题和解决方案。

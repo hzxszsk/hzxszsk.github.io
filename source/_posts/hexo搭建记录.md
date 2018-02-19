@@ -1,9 +1,9 @@
 ---
 title: Hexo搭建记录
-tags: [Hexo,github-pages,个人博客]
 date: 2016-08-09 23:23:29
+categories: 技术文章
+tags: [Hexo,github-pages,个人博客]
 keywords: github pages,hexo
-categories: 前端相关
 ---
 
 
