@@ -1,5 +1,5 @@
 ---
-title: 如何更快地开始使用puppeteer
+title: 在使用puppeteer前你需要做的事
 date: 2017-12-25 19:56:21
 categories: 技术文章
 tags: [nodejs]

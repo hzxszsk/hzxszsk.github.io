@@ -57,8 +57,8 @@ keywords: github pages,引用GitHub项目
 
 以上就是有关于使用gh-pages分支和github pages在github pages页面下引用其他项目的DEMO的方法，顺便放一下我使用这个方法完成的DEMO：
 
-[基于React的图片画廊](https://hzxszsk.github.io/gallery-by-react)
+[基于React的图片画廊](https://kainstar.github.io/gallery-by-react)
 
-[![基于React的图片画廊](http://obn5hqccb.bkt.clouddn.com/gallery-by-react-DEMO.png)](https://hzxszsk.github.io/gallery-by-react)
+[![基于React的图片画廊](http://obn5hqccb.bkt.clouddn.com/gallery-by-react-DEMO.png)](https://kainstar.github.io/gallery-by-react)
 
 看到这篇文章的人或者其他遇到这方面困难的人，希望我的文章能够帮助到你。

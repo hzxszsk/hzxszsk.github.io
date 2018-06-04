@@ -11,7 +11,7 @@ language: zh-Hans
 timezone: Asia/Shanghai
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://blog.kainstar.cn
+url: https://blog.kainstar.moe
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -95,5 +95,3 @@ jsonContent:
 
 sitemap:
   path: sitemap.xml
-baidusitemap:
-  path: baidusitemap.xml

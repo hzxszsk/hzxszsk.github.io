@@ -13,9 +13,9 @@ keywords: rollup,nodejs,打包工具
 
 这篇文章主要是为了让对rollup.js也有兴趣的同学能够快速入门rollup的使用方式而写的，文章除了开始对rollup.js的基本介绍之外，主要用多个demo来介绍rollup.js的不同使用方法，以及介绍一些比较常用的rollup插件。读者可以选择自己有兴趣的部分查看。
 
-[文章博客链接](http://blog.kainstar.cn/2017/08/12/JS%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7rollup%E2%80%94%E5%AE%8C%E5%85%A8%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/)
+[文章博客链接](https://blog.kainstar.moe/2017/08/12/JS%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7rollup%E2%80%94%E5%AE%8C%E5%85%A8%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/)
 
-本教程相关的所有demo都已上传到github，[rollup-demos](https://github.com/hzxszsk/rollup-demos)，欢迎star。
+本教程相关的所有demo都已上传到github，[rollup-demos](https://github.com/kainstar/rollup-demos)，欢迎star。
 
 <!-- more  -->
 

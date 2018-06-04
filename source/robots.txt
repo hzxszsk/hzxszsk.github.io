@@ -12,5 +12,4 @@ Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 
-Sitemap: https://blog.kainstar.cn/sitemap.xml
-Sitemap: https://blog.kainstar.cn/baidusitemap.xml
+Sitemap: https://blog.kainstar.moe/sitemap.xml

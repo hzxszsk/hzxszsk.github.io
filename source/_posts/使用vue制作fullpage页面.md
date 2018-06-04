@@ -10,9 +10,9 @@ keywords: vuejs,fullpage
 
 已经有好久没有更新博客了，大三下了要准备找实习了，才发现自己很多东西都不会，所以赶紧找了个现在流行的MVVM框架学习一下。我学习的是Vue，所以拿Vue写了一个FullPage的模板，可以供自己和其他人使用。
 
-项目的地址是：[https://github.com/hzxszsk/vue-fullpage](https://github.com/hzxszsk/vue-fullpage)
+项目的地址是：[https://github.com/kainstar/vue-fullpage](https://github.com/kainstar/vue-fullpage)
 
-[演示效果在这里](http://hzxszsk.github.io/vue-fullpage)
+[演示效果在这里](https://kainstar.github.io/vue-fullpage)
 
 <!-- more -->
 
@@ -256,4 +256,4 @@ button使用rotate和border属性，制作出箭头的样式，并添加对应�
 
 ## 总结 ##
 
-这篇文章记录了我开发一个FullPage页面的总体流程，将主要的逻辑重新顺理了一遍，还有一些小的细节没有写在文章中，有兴趣的可以去[具体的项目页面](https://github.com/hzxszsk/vue-fullpage)看源码，当然您要是觉得写得还可以，希望给个star(*^__^*) ，如果您有什么想法，欢迎给我留言或加我的QQ私聊。
+这篇文章记录了我开发一个FullPage页面的总体流程，将主要的逻辑重新顺理了一遍，还有一些小的细节没有写在文章中，有兴趣的可以去[具体的项目页面](https://github.com/kainstar/vue-fullpage)看源码，当然您要是觉得写得还可以，希望给个star(*^__^*) ，如果您有什么想法，欢迎给我留言或加我的QQ私聊。
