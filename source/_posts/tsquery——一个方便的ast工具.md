@@ -19,6 +19,8 @@ cover:
 
 为了解决这些，我找到并引入了[`tsquery`](https://github.com/phenomnomnominal/tsquery)这个库，它是 TypeScript 版的[`esquery`](https://github.com/estools/esquery)，能够让我们使用 css 选择器的方式来快速查询满足指定条件的 TypeScript ast 节点（也支持 JavaScript）。
 
+<!-- more -->
+
 ## 比较 demo
 
 在介绍tsquery的使用方式之前，我们先来看一个对比。
