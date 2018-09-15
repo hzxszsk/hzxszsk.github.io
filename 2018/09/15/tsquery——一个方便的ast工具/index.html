@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="谜生">
 <meta property="og:description" content="前言最近在给公司的 web 框架做一个 vscode 的辅助插件，其中有个对需要路由一些文件进行解析，实现配置文件和对应文件的关联信息显示和跳转的功能。既然是对文件进行解析，很自然就会想到使用 ast 的方式来做，加上需要对 TypeScript 也进行支持，我便选择了使用 TypeScript 自带的 ast 工具来进行解析。 在一开始我通过 ts 的forEachChild方法遍历和对比节点的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-15T13:50:32.844Z">
+<meta property="og:updated_time" content="2018-09-15T13:56:43.725Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tsquery——一个方便的ast查询工具">
 <meta name="twitter:description" content="前言最近在给公司的 web 框架做一个 vscode 的辅助插件，其中有个对需要路由一些文件进行解析，实现配置文件和对应文件的关联信息显示和跳转的功能。既然是对文件进行解析，很自然就会想到使用 ast 的方式来做，加上需要对 TypeScript 也进行支持，我便选择了使用 TypeScript 自带的 ast 工具来进行解析。 在一开始我通过 ts 的forEachChild方法遍历和对比节点的">
@@ -181,6 +181,7 @@
 <li>对分布在同一文件中的多个同名标识符，不能统一提取和处理</li>
 </ol>
 <p>为了解决这些，我找到并引入了<a href="https://github.com/phenomnomnominal/tsquery" target="_blank" rel="noopener"><code>tsquery</code></a>这个库，它是 TypeScript 版的<a href="https://github.com/estools/esquery" target="_blank" rel="noopener"><code>esquery</code></a>，能够让我们使用 css 选择器的方式来快速查询满足指定条件的 TypeScript ast 节点（也支持 JavaScript）。</p>
+<a id="more"></a>
 <h2 id="比较-demo"><a href="#比较-demo" class="headerlink" title="比较 demo"></a>比较 demo</h2><p>在介绍tsquery的使用方式之前，我们先来看一个对比。</p>
 <p>对下面这段简单的代码：</p>
 <figure class="highlight ts"><figcaption><span>code.ts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Animal &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"><span class="keyword">public</span> name: <span class="built_in">string</span></span>) &#123; &#125;</span><br><span class="line">  move(distanceInMeters: <span class="built_in">number</span> = <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;this.name&#125;</span> moved <span class="subst">$&#123;distanceInMeters&#125;</span>m.`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -470,11 +471,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">html5</a>
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">html5</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -486,7 +491,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ast</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">nodejs</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">rollup</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -507,22 +524,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">fullpage</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ast</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">nodejs</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">rollup</a>
               </li>
              
               <li class="article-tag-list-item">

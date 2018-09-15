@@ -181,70 +181,9 @@
 <li>对分布在同一文件中的多个同名标识符，不能统一提取和处理</li>
 </ol>
 <p>为了解决这些，我找到并引入了<a href="https://github.com/phenomnomnominal/tsquery" target="_blank" rel="noopener"><code>tsquery</code></a>这个库，它是 TypeScript 版的<a href="https://github.com/estools/esquery" target="_blank" rel="noopener"><code>esquery</code></a>，能够让我们使用 css 选择器的方式来快速查询满足指定条件的 TypeScript ast 节点（也支持 JavaScript）。</p>
-<h2 id="比较-demo"><a href="#比较-demo" class="headerlink" title="比较 demo"></a>比较 demo</h2><p>在介绍tsquery的使用方式之前，我们先来看一个对比。</p>
-<p>对下面这段简单的代码：</p>
-<figure class="highlight ts"><figcaption><span>code.ts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Animal &#123;</span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"><span class="keyword">public</span> name: <span class="built_in">string</span></span>) &#123; &#125;</span><br><span class="line">  move(distanceInMeters: <span class="built_in">number</span> = <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;this.name&#125;</span> moved <span class="subst">$&#123;distanceInMeters&#125;</span>m.`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>若我们要查找到Animal这个类的构造函数的所有参数并打印它们的名称，在使用 tsquery 之前，我们会编写这样一段代码：</p>
-<figure class="highlight ts"><figcaption><span>tsAnalyze.ts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ClassDeclaration, createSourceFile, Node, ScriptTarget, ConstructorDeclaration, SyntaxKind &#125; <span class="keyword">from</span> <span class="string">'TypeScript'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; code &#125; <span class="keyword">from</span> <span class="string">'./code'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> sourceFile = createSourceFile(<span class="string">'fileName'</span>, code, ScriptTarget.Latest, <span class="literal">true</span>);</span><br><span class="line">sourceFile.forEachChild(findClass);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findClass</span>(<span class="params">node: Node</span>): <span class="title">void</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (node.kind === SyntaxKind.ClassDeclaration) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; name &#125; = node <span class="keyword">as</span> ClassDeclaration;</span><br><span class="line">    <span class="keyword">if</span> (name &amp;&amp; name.text === <span class="string">'Animal'</span>) &#123;</span><br><span class="line">      node.forEachChild(findConstructor);</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  node.forEachChild(findClass);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findConstructor</span>(<span class="params">node: Node</span>): <span class="title">void</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (node.kind === SyntaxKind.Constructor) &#123;</span><br><span class="line">    printParameters(node <span class="keyword">as</span> ConstructorDeclaration);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printParameters</span>(<span class="params">node: ConstructorDeclaration</span>) </span>&#123;</span><br><span class="line">  node.parameters.forEach(<span class="function"><span class="params">parameter</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(parameter.name.getText());</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>而在我们引入了tsquery之后，只需要下面这么几行简单的代码：</p>
-<figure class="highlight ts"><figcaption><span>tsqueryAnalyze.ts</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; tsquery &#125; <span class="keyword">from</span> <span class="string">'@phenomnomnominal/tsquery'</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> ts <span class="keyword">from</span> <span class="string">'TypeScript'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; code &#125; <span class="keyword">from</span> <span class="string">'./code'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> parameters = tsquery.query&lt;ts.ParameterDeclaration&gt;(code, <span class="string">'ClassDeclaration[name.name="Animal"] &gt; Constructor &gt; Parameter'</span>);</span><br><span class="line">parameters.forEach(<span class="function"><span class="params">param</span> =&gt;</span> <span class="built_in">console</span>.log(param.name.getText()));</span><br></pre></td></tr></table></figure>
-<p>怎么样，是不是对比强烈，让你迫不及待得想把tsquery用到自己的项目中？</p>
-<h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><p>那么接下来，我就来介绍一下如何去使用tsquery：</p>
-<h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><p>tsquery对象提供了下面几个方法：</p>
-<ul>
-<li>ast:</li>
-</ul>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ast</span>(<span class="params">source: <span class="built_in">string</span>, fileName?: <span class="built_in">string</span></span>): <span class="title">SourceFile</span></span>;</span><br></pre></td></tr></table></figure>
-<p>ast方法的功能如同其名，就是接收源代码，返回一个解析后的ast语法树，实际上就是调用了ts的<code>createSourceFile</code>方法。</p>
-<ul>
-<li>parse:</li>
-</ul>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parse</span>(<span class="params">selector: <span class="built_in">string</span>, options?: TSQueryOptions</span>): <span class="title">TSQuerySelectorNode</span></span>;</span><br></pre></td></tr></table></figure>
-<p>parse方法接收一个规则字符串，这个字符串会被解析成tsquery的选择器对象并返回，再被用于下面的match方法中。</p>
-<ul>
-<li>match:</li>
-</ul>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">match</span>&lt;<span class="title">T</span> <span class="title">extends</span> <span class="title">Node</span> = <span class="title">Node</span>&gt;(<span class="params">ast: Node | TSQueryNode&lt;T&gt;, selector: TSQuerySelectorNode, options?: TSQueryOptions</span>): <span class="title">Array</span>&lt;<span class="title">TSQueryNode</span>&lt;<span class="title">T</span>&gt;&gt;</span>;</span><br></pre></td></tr></table></figure>
-<p>match方法接收一个ast对象和一个parse解析后得到的选择器对象，返回从ast中搜索得到的所有满足选择器条件的节点的数组。</p>
-<p>结合上面三个函数，我们可以得到tsquery的基本使用方法：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ast = tsquery.ast(code);  <span class="comment">// 获得ast语法树</span></span><br><span class="line"><span class="keyword">const</span> selector = tsquery.parse(selectorStr);  <span class="comment">// 获得选择器</span></span><br><span class="line"><span class="keyword">const</span> result = tsquery.match(ast, selector);  <span class="comment">// 查找节点</span></span><br></pre></td></tr></table></figure>
-<p>如果语法树和选择器可能被多次使用，则建议使用变量将它们分别保存下来，避免重复解析导致的资源浪费和时间开销（ast的生成和遍历还是比较花时间的）。</p>
-<p>如果语法树和选择器不会被重复使用，那么可以使用更简单的方法 <code>query</code>。</p>
-<ul>
-<li>query:</li>
-</ul>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">query</span>&lt;<span class="title">T</span> <span class="title">extends</span> <span class="title">Node</span> = <span class="title">Node</span>&gt;(<span class="params">ast: <span class="built_in">string</span> | Node | TSQueryNode&lt;T&gt;, selector: <span class="built_in">string</span>, options?: TSQueryOptions</span>): <span class="title">Array</span>&lt;<span class="title">TSQueryNode</span>&lt;<span class="title">T</span>&gt;&gt;</span>;</span><br></pre></td></tr></table></figure>
-<p>query封装了ast、parse和match三个方法，可以更方便地完成一次查询，同时tsquery自身也是一个query方法。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> result = tsquery.query(code, selectorStr);</span><br><span class="line"><span class="comment">// const result = tsquery(code, selectorStr);</span></span><br></pre></td></tr></table></figure>
-<h3 id="选择器规则"><a href="#选择器规则" class="headerlink" title="选择器规则"></a>选择器规则</h3><ul>
-<li>通用选择器</li>
-</ul>
-<p>和css中的一样，<code>*</code>表示选择所有的节点。</p>
-<ul>
-<li>AST节点类型选择器</li>
-</ul>
-<p>你可以直接使用一个ast节点的类型来当作查询的选择器，例如：类声明: <code>ClassDeclaration</code>，变量声明：<code>VariableDeclaration</code>等，就跟你使用css选择器选择某种HTML元素一样。</p>
-<ul>
-<li>属性选择器</li>
-</ul>
-<p>tsquery支持使用css中属性选择器的方式来搜索满足属性条件的节点，你可以仅仅只声明一个属性的名称（例如：<code>[text]</code>），也可以指定属性的值所满足的条件（例如：<code>[text=&quot;foo&quot;]</code>），其中操作符可以是<code>=</code>、’!=’、’&gt;’、’&lt;’、’&lt;=’、’&gt;=’，值也可以是字符串、数字、正则表达式中的任意一种。<br>tsquery支持多级的属性选择，所以你也可以使用<code>.</code>来组合属性（例如：<code>[members.length&lt;3]</code>）。</p>
-<ul>
-<li>常见的后代、兄弟节点选择器等</li>
-</ul>
-<p>后代节点选择器：<code>node otherNode</code><br>子节点选择器：<code>node &gt; otherNode</code><br>同级节点选择器：<code>node ~ otherNode</code><br>相邻节点选择器：<code>node + otherNode</code></p>
-<ul>
-<li>各种特殊的选择器</li>
-</ul>
-<p>not选择器：<code>:not(ClassDeclaration)</code> 用来选择所有不是类声明的节点<br>has选择器：<code>IfStatement:has([left.text=&quot;foo&quot;])</code> 用来选择含有符合<code>[left.text=&quot;foo&quot;]</code>属性选择器的子节点的if语句<br>第n个节点的选择器：包含 <code>:first-child</code>、<code>:last-child</code>、<code>:nth-child(n)</code>、<code>:nth-last-child(n)</code> 这几种选择器，其中需要注意的是，tsquery并不支持<code>an+b</code>这种类型的序号匹配<br>类型选择器：区分于AST节点类型选择器，这个选择器是用来选择某种共通类型的（比如所有声明、所有表达式等），目前支持的有<code>:statement</code>, <code>:expression</code>, <code>:declaration</code>, <code>:function</code>, 和 <code>:pattern</code></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>tsquery 是一个非常方便和值得使用的 ast 辅助工具，它使用极为简单的 api 和学习成本较低的选择器规则，提供了对抽象和复杂的 AST 语法树较强的查询和操作能力，可以在我们对 AST 进行处理时节省大量的编写成本。</p>
-<p>如果你对 tsquery 的选择器规则抱有疑问，可以在 <a href="https://tsquery-playground.firebaseapp.com/" target="_blank" rel="noopener">TSQuery Playground</a> 上进行在线的测试。</p>
-<p><strong>参考内容：</strong></p>
-<ul>
-<li><a href="https://medium.com/@phenomnominal/easier-TypeScript-tooling-with-tsquery-d74f04f2b29d" target="_blank" rel="noopener">Easier TypeScript tooling with TSQuery</a></li>
-</ul>
-<p>在文章最后打个招聘广告：</p>
-<p>有赞招聘前端工程师，实习、校招、社招都可，具体要求可以参考<a href="https://job.youzan.com/" target="_blank" rel="noopener">https://job.youzan.com/</a>，同时您也可以将简历投递到我的内推邮箱：<a href="mailto:zhangshikai@youzan.com" target="_blank" rel="noopener">zhangshikai@youzan.com</a></p>
-
+        
+          <a class="article-more-a" href="/2018/09/15/tsquery——一个方便的ast工具/#more">more >></a>
+        
       
 
       
@@ -862,11 +801,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">html5</a>
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">html5</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -878,7 +821,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ast</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">nodejs</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">rollup</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -899,22 +854,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">fullpage</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ast</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">nodejs</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">rollup</a>
               </li>
              
               <li class="article-tag-list-item">
