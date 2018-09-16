@@ -160,6 +160,7 @@ tsquery支持多级的属性选择，所以你也可以使用`.`来组合属性�
 子节点选择器：`node > otherNode`
 同级节点选择器：`node ~ otherNode`
 相邻节点选择器：`node + otherNode`
+群组选择器：`node, otherNode`
 
 - 各种特殊的选择器
 
@@ -168,8 +169,10 @@ has选择器：`IfStatement:has([left.text="foo"])` 用来选择含有符合`[le
 第n个节点的选择器：包含 `:first-child`、`:last-child`、`:nth-child(n)`、`:nth-last-child(n)` 这几种选择器，其中需要注意的是，tsquery并不支持`an+b`这种类型的序号匹配
 类型选择器：区分于AST节点类型选择器，这个选择器是用来选择某种共通类型的（比如所有声明、所有表达式等），目前支持的有`:statement`, `:expression`, `:declaration`, `:function`, 和 `:pattern`
 
+以上所有的选择器都可以混合使用
+
 ## 总结
-tsquery 是一个非常方便和值得使用的 ast 辅助工具，它使用极为简单的 api 和学习成本较低的选择器规则，提供了对抽象和复杂的 AST 语法树较强的查询和操作能力，可以在我们对 AST 进行处理时节省大量的编写成本。
+tsquery 是一个非常方便和值得使用的 ast 辅助工具，它使用极为简单的 api 和学习成本较低的选择器规则，提供了对抽象和复杂的 AST 语法树较强的查询能力，可以在我们对 AST 进行处理时节省大量的编写成本。
 
 如果你对 tsquery 的选择器规则抱有疑问，可以在 [TSQuery Playground](https://tsquery-playground.firebaseapp.com/) 上进行在线的测试。
 
