@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="谜生">
 <meta property="og:description" content="前言最近在给公司的 web 框架做一个 vscode 的辅助插件，其中有个对需要路由一些文件进行解析，实现配置文件和对应文件的关联信息显示和跳转的功能。既然是对文件进行解析，很自然就会想到使用 ast 的方式来做，加上需要对 TypeScript 也进行支持，我便选择了使用 TypeScript 自带的 ast 工具来进行解析。 在一开始我通过 ts 的forEachChild方法遍历和对比节点的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-15T13:56:43.725Z">
+<meta property="og:updated_time" content="2018-09-16T03:25:49.144Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tsquery——一个方便的ast查询工具">
 <meta name="twitter:description" content="前言最近在给公司的 web 框架做一个 vscode 的辅助插件，其中有个对需要路由一些文件进行解析，实现配置文件和对应文件的关联信息显示和跳转的功能。既然是对文件进行解析，很自然就会想到使用 ast 的方式来做，加上需要对 TypeScript 也进行支持，我便选择了使用 TypeScript 自带的 ast 工具来进行解析。 在一开始我通过 ts 的forEachChild方法遍历和对比节点的">
@@ -232,12 +232,13 @@
 <ul>
 <li>常见的后代、兄弟节点选择器等</li>
 </ul>
-<p>后代节点选择器：<code>node otherNode</code><br>子节点选择器：<code>node &gt; otherNode</code><br>同级节点选择器：<code>node ~ otherNode</code><br>相邻节点选择器：<code>node + otherNode</code></p>
+<p>后代节点选择器：<code>node otherNode</code><br>子节点选择器：<code>node &gt; otherNode</code><br>同级节点选择器：<code>node ~ otherNode</code><br>相邻节点选择器：<code>node + otherNode</code><br>群组选择器：<code>node, otherNode</code></p>
 <ul>
 <li>各种特殊的选择器</li>
 </ul>
 <p>not选择器：<code>:not(ClassDeclaration)</code> 用来选择所有不是类声明的节点<br>has选择器：<code>IfStatement:has([left.text=&quot;foo&quot;])</code> 用来选择含有符合<code>[left.text=&quot;foo&quot;]</code>属性选择器的子节点的if语句<br>第n个节点的选择器：包含 <code>:first-child</code>、<code>:last-child</code>、<code>:nth-child(n)</code>、<code>:nth-last-child(n)</code> 这几种选择器，其中需要注意的是，tsquery并不支持<code>an+b</code>这种类型的序号匹配<br>类型选择器：区分于AST节点类型选择器，这个选择器是用来选择某种共通类型的（比如所有声明、所有表达式等），目前支持的有<code>:statement</code>, <code>:expression</code>, <code>:declaration</code>, <code>:function</code>, 和 <code>:pattern</code></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>tsquery 是一个非常方便和值得使用的 ast 辅助工具，它使用极为简单的 api 和学习成本较低的选择器规则，提供了对抽象和复杂的 AST 语法树较强的查询和操作能力，可以在我们对 AST 进行处理时节省大量的编写成本。</p>
+<p>以上所有的选择器都可以混合使用</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>tsquery 是一个非常方便和值得使用的 ast 辅助工具，它使用极为简单的 api 和学习成本较低的选择器规则，提供了对抽象和复杂的 AST 语法树较强的查询能力，可以在我们对 AST 进行处理时节省大量的编写成本。</p>
 <p>如果你对 tsquery 的选择器规则抱有疑问，可以在 <a href="https://tsquery-playground.firebaseapp.com/" target="_blank" rel="noopener">TSQuery Playground</a> 上进行在线的测试。</p>
 <p><strong>参考内容：</strong></p>
 <ul>
@@ -471,6 +472,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">html5</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
@@ -479,23 +484,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">html5</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">github</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">github pages</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ast</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -516,6 +509,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">个人博客</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ast</a>
               </li>
              
               <li class="article-tag-list-item">
